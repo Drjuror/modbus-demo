@@ -1,0 +1,164 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.42.0.0
+Copyright (C) 2025 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: chen liang, 1, LIC=VGXG8-3R4ZM-2ZLW4-FVJW1-B5KID-H3TK9
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.42.0.0
+Toolchain Path:  D:\Program Files\mcu\keil_mdk_arm\ARM\arm5_compiler\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.42.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.3.0.0
+Dialog DLL:      TCM.DLL V1.56.6.0
+ 
+<h2>Project:</h2>
+D:\dev\mcu\codes\learn\stm32\custom-modbus-slave-master\MDK-ARM\custom-modbus-slave-master.uvprojx
+Project File Date:  05/07/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Program Files\mcu\keil_mdk_arm\ARM\arm5_compiler\Bin'
+Rebuild target 'custom-modbus-slave-master'
+assembling startup_stm32f103xe.s...
+compiling gpio.c...
+compiling main.c...
+..\USER\Modbus\Inc\serialprotocol.h(39): warning:  #1295-D: Deprecated declaration enable - give arg types
+  void enable();
+..\USER\Modbus\Inc\serialprotocol.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Core/Src/main.c(95): warning:  #223-D: function "enableUSART1ReceiveIT" declared implicitly
+    enableUSART1ReceiveIT();
+../Core/Src/main.c(96): warning:  #223-D: function "initRtu" declared implicitly
+    initRtu();
+../Core/Src/main.c(106): warning:  #223-D: function "startRtuMaster" declared implicitly
+      startRtuMaster();
+../Core/Src/main.c: 5 warnings, 0 errors
+compiling stm32f1xx_it.c...
+../Core/Src/stm32f1xx_it.c(49): warning:  #1295-D: Deprecated declaration serialRxISR - give arg types
+  extern void serialRxISR();
+../Core/Src/stm32f1xx_it.c(50): warning:  #1295-D: Deprecated declaration serialTxISR - give arg types
+  extern void serialTxISR();
+../Core/Src/stm32f1xx_it.c(51): warning:  #1295-D: Deprecated declaration disableTimer4 - give arg types
+  extern void disableTimer4();
+../Core/Src/stm32f1xx_it.c(246): warning:  #223-D: function "timerExpiredISR" declared implicitly
+      timerExpiredISR();
+../Core/Src/stm32f1xx_it.c: 4 warnings, 0 errors
+compiling tim.c...
+compiling stm32f1xx_hal_gpio_ex.c...
+compiling stm32f1xx_hal.c...
+compiling usart.c...
+compiling stm32f1xx_hal_msp.c...
+compiling stm32f1xx_hal_rcc_ex.c...
+compiling stm32f1xx_hal_gpio.c...
+compiling stm32f1xx_hal_rcc.c...
+compiling stm32f1xx_hal_tim_ex.c...
+compiling serial.c...
+..\USER\Modbus\Inc\modbusprotocol.h(54): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
+  void t35TimerExpiredCallback();
+..\USER\Modbus\Inc\serialprotocol.h(39): warning:  #1295-D: Deprecated declaration enable - give arg types
+  void enable();
+..\USER\Modbus\Inc\serialprotocol.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\USER\Modbus\Src\serial.c(28): warning:  #223-D: function "receiveByte" declared implicitly
+      receiveByte(byte);
+..\USER\Modbus\Src\serial.c(35): warning:  #223-D: function "sendByte" declared implicitly
+      sendByte(buffer);
+..\USER\Modbus\Src\serial.c(42): warning:  #223-D: function "receiveByteCallback" declared implicitly
+      receiveByteCallback();
+..\USER\Modbus\Src\serial.c(49): warning:  #223-D: function "sendByte" declared implicitly
+      sendByte(buffer);
+..\USER\Modbus\Src\serial.c: 7 warnings, 0 errors
+compiling rtuprotocol.c...
+..\USER\Modbus\Inc\modbusprotocol.h(54): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
+  void t35TimerExpiredCallback();
+..\USER\Modbus\Inc\serialprotocol.h(39): warning:  #1295-D: Deprecated declaration enable - give arg types
+  void enable();
+..\USER\Modbus\Inc\serialprotocol.h(42): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Com\datatype.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\USER\Modbus\Src\rtu\rtuprotocol.c(104): warning:  #223-D: function "getEvent" declared implicitly
+      if (!getEvent(& publishedEvent)) {
+..\USER\Modbus\Src\rtu\rtuprotocol.c(124): warning:  #223-D: function "transmitByte" declared implicitly
+                  transmitByte(sendCharBuffer[i]);
+..\USER\Modbus\Src\rtu\rtuprotocol.c(146): warning:  #223-D: function "transmitByte" declared implicitly
+          transmitByte(sendCharBuffer[i]);
+..\USER\Modbus\Src\rtu\rtuprotocol.c(177): warning:  #223-D: function "enableTimers" declared implicitly
+              enableTimers();
+..\USER\Modbus\Src\rtu\rtuprotocol.c(206): warning:  #223-D: function "publishEvent" declared implicitly
+              publishEvent(FRAME_RECEIVED_EVENT);
+..\USER\Modbus\Src\rtu\rtuprotocol.c(212): warning:  #223-D: function "disableTimers" declared implicitly
+      disableTimers();
+..\USER\Modbus\Src\rtu\rtuprotocol.c(10): warning:  #550-D: variable "workMode"  was set but never used
+  static NodeWorkMode workMode;
+..\USER\Modbus\Src\rtu\rtuprotocol.c(17): warning:  #550-D: variable "bytesBuffer"  was set but never used
+  static unsigned char bytesBuffer[RTU_FRAME_CHAR_MAXIMUM_SIZE];
+..\USER\Modbus\Src\rtu\rtuprotocol.c(22): warning:  #177-D: variable "pucSndBufferCur"  was declared but never referenced
+  static unsigned char *pucSndBufferCur;
+..\USER\Modbus\Src\rtu\rtuprotocol.c(23): warning:  #177-D: variable "usSndBufferCount"  was declared but never referenced
+  static unsigned char usSndBufferCount;
+..\USER\Modbus\Src\rtu\rtuprotocol.c: 14 warnings, 0 errors
+compiling timer.c...
+..\Com\datatype.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\USER\Modbus\Inc\modbusprotocol.h(54): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
+  void t35TimerExpiredCallback();
+..\USER\Modbus\Src\timer.c(21): warning:  #223-D: function "enableTimer4" declared implicitly
+      enableTimer4();
+..\USER\Modbus\Src\timer.c(30): warning:  #223-D: function "disableTimer4" declared implicitly
+      disableTimer4();
+..\USER\Modbus\Src\timer.c: 4 warnings, 0 errors
+compiling rtuslaveeventcenter.c...
+..\USER\Modbus\Inc\modbusprotocol.h(54): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
+  void t35TimerExpiredCallback();
+..\Com\datatype.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\USER\Modbus\Src\rtu\slave\rtuslaveeventcenter.c: 2 warnings, 0 errors
+compiling stm32f1xx_hal_tim.c...
+compiling stm32f1xx_hal_cortex.c...
+compiling stm32f1xx_hal_dma.c...
+compiling stm32f1xx_hal_pwr.c...
+compiling stm32f1xx_hal_flash.c...
+compiling stm32f1xx_hal_exti.c...
+compiling stm32f1xx_hal_flash_ex.c...
+compiling system_stm32f1xx.c...
+compiling stm32f1xx_hal_uart.c...
+linking...
+Program Size: Code=5484 RO-data=380 RW-data=28 ZI-data=2292  
+FromELF: creating hex file...
+"custom-modbus-slave-master\custom-modbus-slave-master.axf" - 0 Error(s), 36 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                https://www.keil.com/pack/ARM.CMSIS.6.1.0.pack
+                ARM::CMSIS@6.1.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 6.1.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.1.pack
+                Keil::STM32F1xx_DFP@2.4.1
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_custom-modbus-slave-master
+  D:/Program Files/mcu/keil_mdk_arm/Packs/ARM/CMSIS/6.1.0/CMSIS/Core/Include
+  D:/Program Files/mcu/keil_mdk_arm/Packs/Keil/STM32F1xx_DFP/2.4.1/Device/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE@6.1.0
+      Include file:  CMSIS/Core/Include/tz_context.h
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>

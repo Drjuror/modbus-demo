@@ -1,0 +1,29 @@
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Core/Inc/stm32f1xx_hal_conf.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/CMSIS/Include/core_cm3.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: D:\Program Files\mcu\keil_mdk_arm\ARM\arm5_compiler\Bin\..\include\stdint.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/CMSIS/Include/cmsis_version.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: D:\Program Files\mcu\keil_mdk_arm\ARM\arm5_compiler\Bin\..\include\stddef.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
+custom-modbus-slave-master\stm32f1xx_hal_dma.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h

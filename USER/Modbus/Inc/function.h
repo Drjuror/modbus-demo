@@ -1,0 +1,5 @@
+#ifndef __MODBUS_FUNCTION_H
+#define __MODBUS_FUNCTION_H
+
+#define FUNCTION_CODE_READ_INPUT_REGISTER (4)
+#endif
