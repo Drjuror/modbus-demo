@@ -108,7 +108,9 @@ void startRtuSlave()
         case FRAME_RECEIVED_EVENT:
             sendCharBuffer[0] = 0x01;
             sendCharBuffer[1] = 0x04;
+
             sendCharBuffer[2] = 0x08;
+
             sendCharBuffer[3] = 0x00;
             sendCharBuffer[4] = 0x11;
             sendCharBuffer[5] = 0x00;
@@ -117,6 +119,7 @@ void startRtuSlave()
             sendCharBuffer[8] = 0x33;
             sendCharBuffer[9] = 0x00;
             sendCharBuffer[10] = 0x44;
+
             sendCharBuffer[11] = 0x2D;
             sendCharBuffer[12] = 0x37;
             for (int i = 0; i < 13; i++) {
