@@ -102,9 +102,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    // startSlave();
-    startRtuMaster();
-    HAL_Delay(3000);
+    startRtuSlave();
+    // startRtuMaster();
+    // HAL_Delay(3000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

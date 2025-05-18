@@ -4,7 +4,6 @@
 
 
 
-
 void init()
 {
 
@@ -23,7 +22,7 @@ void disable()
 }
 
 
-void serialReceiveByte(char * byte)
+void serialReceiveByte(char *byte)
 {
     receiveByte(byte);
 }

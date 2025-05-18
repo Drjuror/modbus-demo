@@ -22,13 +22,19 @@ Dialog DLL:      TCM.DLL V1.56.6.0
  
 <h2>Project:</h2>
 D:\dev\mcu\codes\learn\stm32\custom-modbus-slave-master\MDK-ARM\custom-modbus-slave-master.uvprojx
-Project File Date:  05/07/2025
+Project File Date:  05/18/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Program Files\mcu\keil_mdk_arm\ARM\arm5_compiler\Bin'
 Rebuild target 'custom-modbus-slave-master'
 assembling startup_stm32f103xe.s...
+compiling tim.c...
+compiling stm32f1xx_hal_gpio_ex.c...
+compiling stm32f1xx_hal.c...
 compiling gpio.c...
+compiling stm32f1xx_hal_rcc_ex.c...
+compiling usart.c...
+compiling stm32f1xx_hal_msp.c...
 compiling main.c...
 ..\USER\Modbus\Inc\serialprotocol.h(39): warning:  #1295-D: Deprecated declaration enable - give arg types
   void enable();
@@ -38,8 +44,8 @@ compiling main.c...
     enableUSART1ReceiveIT();
 ../Core/Src/main.c(96): warning:  #223-D: function "initRtu" declared implicitly
     initRtu();
-../Core/Src/main.c(106): warning:  #223-D: function "startRtuMaster" declared implicitly
-      startRtuMaster();
+../Core/Src/main.c(105): warning:  #223-D: function "startRtuSlave" declared implicitly
+      startRtuSlave();
 ../Core/Src/main.c: 5 warnings, 0 errors
 compiling stm32f1xx_it.c...
 ../Core/Src/stm32f1xx_it.c(49): warning:  #1295-D: Deprecated declaration serialRxISR - give arg types
@@ -51,33 +57,26 @@ compiling stm32f1xx_it.c...
 ../Core/Src/stm32f1xx_it.c(246): warning:  #223-D: function "timerExpiredISR" declared implicitly
       timerExpiredISR();
 ../Core/Src/stm32f1xx_it.c: 4 warnings, 0 errors
-compiling tim.c...
-compiling stm32f1xx_hal_gpio_ex.c...
-compiling stm32f1xx_hal.c...
-compiling usart.c...
-compiling stm32f1xx_hal_msp.c...
-compiling stm32f1xx_hal_rcc_ex.c...
 compiling stm32f1xx_hal_gpio.c...
 compiling stm32f1xx_hal_rcc.c...
-compiling stm32f1xx_hal_tim_ex.c...
 compiling serial.c...
-..\USER\Modbus\Inc\modbusprotocol.h(54): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
+..\USER\Modbus\Inc\modbusprotocol.h(55): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
   void t35TimerExpiredCallback();
 ..\USER\Modbus\Inc\serialprotocol.h(39): warning:  #1295-D: Deprecated declaration enable - give arg types
   void enable();
 ..\USER\Modbus\Inc\serialprotocol.h(42): warning:  #1-D: last line of file ends without a newline
   #endif
-..\USER\Modbus\Src\serial.c(28): warning:  #223-D: function "receiveByte" declared implicitly
+..\USER\Modbus\Src\serial.c(27): warning:  #223-D: function "receiveByte" declared implicitly
       receiveByte(byte);
-..\USER\Modbus\Src\serial.c(35): warning:  #223-D: function "sendByte" declared implicitly
+..\USER\Modbus\Src\serial.c(34): warning:  #223-D: function "sendByte" declared implicitly
       sendByte(buffer);
-..\USER\Modbus\Src\serial.c(42): warning:  #223-D: function "receiveByteCallback" declared implicitly
+..\USER\Modbus\Src\serial.c(41): warning:  #223-D: function "receiveByteCallback" declared implicitly
       receiveByteCallback();
-..\USER\Modbus\Src\serial.c(49): warning:  #223-D: function "sendByte" declared implicitly
+..\USER\Modbus\Src\serial.c(48): warning:  #223-D: function "sendByte" declared implicitly
       sendByte(buffer);
 ..\USER\Modbus\Src\serial.c: 7 warnings, 0 errors
 compiling rtuprotocol.c...
-..\USER\Modbus\Inc\modbusprotocol.h(54): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
+..\USER\Modbus\Inc\modbusprotocol.h(55): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
   void t35TimerExpiredCallback();
 ..\USER\Modbus\Inc\serialprotocol.h(39): warning:  #1295-D: Deprecated declaration enable - give arg types
   void enable();
@@ -85,56 +84,64 @@ compiling rtuprotocol.c...
   #endif
 ..\Com\datatype.h(11): warning:  #1-D: last line of file ends without a newline
   #endif
-..\USER\Modbus\Src\rtu\rtuprotocol.c(104): warning:  #223-D: function "getEvent" declared implicitly
+..\USER\Modbus\Src\rtu\rtuprotocol.c(97): warning:  #223-D: function "getEvent" declared implicitly
       if (!getEvent(& publishedEvent)) {
-..\USER\Modbus\Src\rtu\rtuprotocol.c(124): warning:  #223-D: function "transmitByte" declared implicitly
-                  transmitByte(sendCharBuffer[i]);
-..\USER\Modbus\Src\rtu\rtuprotocol.c(146): warning:  #223-D: function "transmitByte" declared implicitly
+..\USER\Modbus\Src\rtu\rtuprotocol.c(107): warning:  #223-D: function "readInputRegister" declared implicitly
+              readInputRegister(&bytesBuffer, &length);
+..\USER\Modbus\Src\rtu\rtuprotocol.c(123): warning:  #223-D: function "usMBCRC16" declared implicitly
+              unsigned short crc16 = usMBCRC16(&bytesBuffer, 11);
+..\USER\Modbus\Src\rtu\rtuprotocol.c(129): warning:  #223-D: function "transmitByte" declared implicitly
+                  transmitByte(bytesBuffer[i]);
+..\USER\Modbus\Src\rtu\rtuprotocol.c(102): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "crc16"  (declared at line 123)
+      switch (publishedEvent) {
+      ^
+..\USER\Modbus\Src\rtu\rtuprotocol.c(151): warning:  #223-D: function "transmitByte" declared implicitly
           transmitByte(sendCharBuffer[i]);
-..\USER\Modbus\Src\rtu\rtuprotocol.c(177): warning:  #223-D: function "enableTimers" declared implicitly
+..\USER\Modbus\Src\rtu\rtuprotocol.c(182): warning:  #223-D: function "enableTimers" declared implicitly
               enableTimers();
-..\USER\Modbus\Src\rtu\rtuprotocol.c(206): warning:  #223-D: function "publishEvent" declared implicitly
+..\USER\Modbus\Src\rtu\rtuprotocol.c(211): warning:  #223-D: function "publishEvent" declared implicitly
               publishEvent(FRAME_RECEIVED_EVENT);
-..\USER\Modbus\Src\rtu\rtuprotocol.c(212): warning:  #223-D: function "disableTimers" declared implicitly
+..\USER\Modbus\Src\rtu\rtuprotocol.c(217): warning:  #223-D: function "disableTimers" declared implicitly
       disableTimers();
 ..\USER\Modbus\Src\rtu\rtuprotocol.c(10): warning:  #550-D: variable "workMode"  was set but never used
   static NodeWorkMode workMode;
-..\USER\Modbus\Src\rtu\rtuprotocol.c(17): warning:  #550-D: variable "bytesBuffer"  was set but never used
-  static unsigned char bytesBuffer[RTU_FRAME_CHAR_MAXIMUM_SIZE];
-..\USER\Modbus\Src\rtu\rtuprotocol.c(22): warning:  #177-D: variable "pucSndBufferCur"  was declared but never referenced
-  static unsigned char *pucSndBufferCur;
-..\USER\Modbus\Src\rtu\rtuprotocol.c(23): warning:  #177-D: variable "usSndBufferCount"  was declared but never referenced
-  static unsigned char usSndBufferCount;
 ..\USER\Modbus\Src\rtu\rtuprotocol.c: 14 warnings, 0 errors
 compiling timer.c...
 ..\Com\datatype.h(11): warning:  #1-D: last line of file ends without a newline
   #endif
-..\USER\Modbus\Inc\modbusprotocol.h(54): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
+..\USER\Modbus\Inc\modbusprotocol.h(55): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
   void t35TimerExpiredCallback();
 ..\USER\Modbus\Src\timer.c(21): warning:  #223-D: function "enableTimer4" declared implicitly
       enableTimer4();
 ..\USER\Modbus\Src\timer.c(30): warning:  #223-D: function "disableTimer4" declared implicitly
       disableTimer4();
 ..\USER\Modbus\Src\timer.c: 4 warnings, 0 errors
+compiling stm32f1xx_hal_tim_ex.c...
 compiling rtuslaveeventcenter.c...
-..\USER\Modbus\Inc\modbusprotocol.h(54): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
+..\USER\Modbus\Inc\modbusprotocol.h(55): warning:  #1295-D: Deprecated declaration t35TimerExpiredCallback - give arg types
   void t35TimerExpiredCallback();
 ..\Com\datatype.h(11): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\USER\Modbus\Src\rtu\slave\rtuslaveeventcenter.c: 2 warnings, 0 errors
+compiling functioninputregister.c...
+..\USER\Modbus\Inc\function.h(5): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\USER\Modbus\Src\function\functioninputregister.c: 1 warning, 0 errors
+compiling mbcrc.c...
 compiling stm32f1xx_hal_tim.c...
 compiling stm32f1xx_hal_cortex.c...
 compiling stm32f1xx_hal_dma.c...
 compiling stm32f1xx_hal_pwr.c...
 compiling stm32f1xx_hal_flash.c...
+compiling system_stm32f1xx.c...
 compiling stm32f1xx_hal_exti.c...
 compiling stm32f1xx_hal_flash_ex.c...
-compiling system_stm32f1xx.c...
 compiling stm32f1xx_hal_uart.c...
 linking...
-Program Size: Code=5484 RO-data=380 RW-data=28 ZI-data=2292  
+Program Size: Code=5644 RO-data=892 RW-data=36 ZI-data=2292  
 FromELF: creating hex file...
-"custom-modbus-slave-master\custom-modbus-slave-master.axf" - 0 Error(s), 36 Warning(s).
+"custom-modbus-slave-master\custom-modbus-slave-master.axf" - 0 Error(s), 37 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -158,7 +165,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE@6.1.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

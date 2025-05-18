@@ -25,6 +25,8 @@
 "custom-modbus-slave-master\rtuprotocol.o"
 "custom-modbus-slave-master\timer.o"
 "custom-modbus-slave-master\rtuslaveeventcenter.o"
+"custom-modbus-slave-master\functioninputregister.o"
+"custom-modbus-slave-master\mbcrc.o"
 --strict --scatter "custom-modbus-slave-master\custom-modbus-slave-master.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

@@ -55,7 +55,7 @@ static const unsigned char aucCRCLo[] = {
 /**
  * compute CRC16
  */
-unsigned short usMBCRC16(unsigned char * pucFrame, unsigned short usLen)
+extern unsigned short usMBCRC16(unsigned char *pucFrame, unsigned short usLen)
 {
     unsigned char           ucCRCHi = 0xFF;
     unsigned char           ucCRCLo = 0xFF;

@@ -38,5 +38,5 @@ typedef enum
 
 void enable();
 
-void serialReceiveByte(char * byte);
+void serialReceiveByte(char *byte);
 #endif
