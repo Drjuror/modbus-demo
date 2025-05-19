@@ -302,5 +302,10 @@ extern void enableUSART1TransEmptyIT()
 }
 
 
+extern void disableUSART1TransEmptyIT()
+{
+  __HAL_UART_DISABLE_IT(&huart1, UART_IT_TXE);
+}
+
 
 /* USER CODE END 1 */

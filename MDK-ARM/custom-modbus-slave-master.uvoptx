@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>128</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>134223406</Address>
+          <LineNumber>188</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134223664</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,7 +163,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\USER\Modbus\Src\rtu\rtuprotocol.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\custom_modbus_slave_master\../USER/Modbus/Src/rtu/rtuprotocol.c\128</Expression>
+          <Expression>\\custom_modbus_slave_master\../USER/Modbus/Src/rtu/rtuprotocol.c\188</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -176,6 +176,16 @@
           <count>1</count>
           <WinNumber>1</WinNumber>
           <ItemText>bytesBuffer</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>transmitterState</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>transmittedBytesBufferPosition</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

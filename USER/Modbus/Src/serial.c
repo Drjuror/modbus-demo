@@ -44,6 +44,5 @@ void serialRxISR()
 
 void serialTxISR()
 {
-    unsigned char buffer = 1;
-    sendByte(buffer);
+    transmitByteCallback();
 }

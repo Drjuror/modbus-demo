@@ -10,19 +10,16 @@ static unsigned char address = 0x01;
 static NodeWorkMode workMode;
 static Boolean enabled = TRUE;
 
-
 /**
  * hold received bytes in one frame
  */
 static unsigned char bytesBuffer[RTU_FRAME_CHAR_MAXIMUM_SIZE];
 static unsigned short receivedBytesBufferPosition = 0;
-static unsigned char sendCharBuffer[RTU_FRAME_CHAR_MAXIMUM_SIZE];
-
+static unsigned short transmittedBytesBufferPosition = 0;
 
 
 static volatile ModbusReceiverState receiverState = RECEIVER_IDLE_STATE;
 static volatile ModbusTransmitterState transmitterState = TRANSMITTER_IDLE_STATE;
-
 
 
 static void initRtuMaster(ModbusNodeWorkContext * context);
@@ -36,11 +33,17 @@ void initRtu(ModbusNodeWorkContext * context)
 {
     if (context->workMode == NODE_ROLE_MASTER)
     {
-        initRtuMaster(context);
+        address = MASTER_NODE_ADDRESS;
     }
     else if (context->workMode == NODE_ROLE_SLAVE)
     {
-        initRtuSlave(context);
+        if (context->address < MIN_SLAVE_NODE_ADDRESS || context->address > MAX_SLAVE_NODE_ADDRESS)
+        {
+            return;
+        }
+
+        address = context->address;
+        workMode = NODE_ROLE_SLAVE;
     }
     else
     {
@@ -48,27 +51,6 @@ void initRtu(ModbusNodeWorkContext * context)
     }
 }
 
-
-/**
- * init rtu master
- */
-static void initRtuMaster(ModbusNodeWorkContext * context)
-{
-    address = MASTER_NODE_ADDRESS;
-}
-
-
-static void initRtuSlave(ModbusNodeWorkContext * context)
-{
-    if (context->address < MIN_SLAVE_NODE_ADDRESS || context->address > MAX_SLAVE_NODE_ADDRESS)
-    {
-        return;
-    }
-
-    // address = context->address;
-    // address = 0x02;
-    workMode = NODE_ROLE_SLAVE;
-}
 
 
 void enableRtuSlave()
@@ -98,19 +80,22 @@ void startRtuSlave()
         return;
     }
 
-    unsigned char length = receivedBytesBufferPosition - 1 - 2;
+    unsigned char length = receivedBytesBufferPosition - RTU_FRAME_ADDRESS_CHAR_SIZE - RTU_FRAME_CRC_CHAR_SIZE;
     switch (publishedEvent) {
         case FRAME_RECEIVED_EVENT:
             readInputRegister(&bytesBuffer, &length);
 
             unsigned short crc16 = usMBCRC16(&bytesBuffer, 11);
+            // low
             bytesBuffer[11] = (unsigned char) (crc16 & 0xFF);
+            // high
             bytesBuffer[12] = (unsigned char) (crc16 >> 8);
 
             receiverState = RECEIVER_IDLE_STATE;
-            for (int i = 0; i < 13; i++) {
-                transmitByte(bytesBuffer[i]);
-            }
+            transmitterState = TRANSMITTING_STATE;
+            transmittedBytesBufferPosition = 0;
+
+            enableUSART1TransEmptyIT();
             break;
         case FRAME_TRANSMITTED_EVENT:
             break;
@@ -122,6 +107,8 @@ void startRtuSlave()
 
 void startRtuMaster()
 {
+    static unsigned char sendCharBuffer[RTU_FRAME_CHAR_MAXIMUM_SIZE];
+
     sendCharBuffer[0] = 0x01;
     sendCharBuffer[1] = 0x06;
     sendCharBuffer[2] = 0x00;
@@ -138,14 +125,14 @@ void startRtuMaster()
 
 extern void receiveByteCallback()
 {
+   //  take away received byte from serial port
+    unsigned char receivedByte;
+    serialReceiveByte((char *) &receivedByte);
+
     if (transmitterState != TRANSMITTER_IDLE_STATE)
     {
         return;
     }
-
-    //  take away received byte from serial port
-    unsigned char receivedByte;
-    serialReceiveByte((char *) & receivedByte);
 
     switch (receiverState)
     {
@@ -181,6 +168,29 @@ extern void receiveByteCallback()
 }
 
 
+
+extern void transmitByteCallback()
+{
+    switch (transmitterState)
+    {
+        case TRANSMITTER_IDLE_STATE:
+            break;
+        case TRANSMITTING_STATE:
+            if (transmittedBytesBufferPosition < 13)
+            {
+                transmitByte(bytesBuffer[transmittedBytesBufferPosition++]);
+            }
+            else
+            {
+                disableUSART1TransEmptyIT();
+                transmitterState = TRANSMITTER_IDLE_STATE;
+                enableUSART1ReceiveIT();
+            }
+            break;
+    }
+}
+
+
 /**
  *
  */
@@ -192,6 +202,7 @@ void t35TimerExpiredCallback()
             break;
         case RECEIVING_STATE:
             publishEvent(FRAME_RECEIVED_EVENT);
+            disableUSART1ReceiveIT();
             break;
         default:
             break;

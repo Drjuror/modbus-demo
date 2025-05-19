@@ -48,6 +48,7 @@ typedef enum
 typedef enum
 {
     TRANSMITTER_IDLE_STATE,
+    TRANSMITTING_STATE,
 } ModbusTransmitterState;
 
 
