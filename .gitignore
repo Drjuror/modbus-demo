@@ -1,1 +1,2 @@
-MDK-ARM/custom-modbus-slave-master.uvguix.zmm
+MDK-ARM/custom-modbus-slave-master/*
+MDK-ARM/custom-modbus-slave-master/stm32f1xx_hal_gpio_ex.o
