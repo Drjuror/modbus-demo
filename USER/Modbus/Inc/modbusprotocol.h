@@ -3,13 +3,13 @@
 
 
 /**
- * Modbus Node work role includes master and slave.
+ * modbus devices work mode includes master mode and slave mode.
  */
 typedef enum
 {
-    NODE_ROLE_MASTER,
-    NODE_ROLE_SLAVE
-} NodeWorkMode;
+    WORK_MODE_MASTER,
+    WORK_MODE_SLAVE
+} ModbusDeviceWorkMode;
 
 
 /**
@@ -17,9 +17,10 @@ typedef enum
  */
 typedef struct
 {
-    NodeWorkMode workMode; // master or slave
+    ModbusDeviceWorkMode workMode; // master or slave
     unsigned char address; // slave address
-} ModbusNodeWorkContext;
+} ModbusDeviceWorkContext;
+
 
 
 typedef enum
@@ -29,6 +30,7 @@ typedef enum
 } ModbusSlaveEvent;
 
 
+
 typedef enum
 {
     RECEIVER_IDLE_STATE,
@@ -36,11 +38,13 @@ typedef enum
 } ModbusReceiverState;
 
 
+
 typedef enum
 {
     TRANSMITTER_IDLE_STATE,
     TRANSMITTING_STATE,
 } ModbusTransmitterState;
+
 
 
 void t35TimerExpiredCallback();

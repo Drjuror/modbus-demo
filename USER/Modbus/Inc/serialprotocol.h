@@ -12,34 +12,36 @@ typedef enum
 } SerialTransmissionMode;
 
 
-/* address rules start */
+
+/* devide address constants start */
 #define SERIAL_BROADCAST_ADDRESS (0)
-#define MASTER_NODE_ADDRESS (0)
-#define MIN_SLAVE_NODE_ADDRESS (1)
-#define MAX_SLAVE_NODE_ADDRESS (247)
-/* address rules end */
+#define MASTER_DEVICE_ADDRESS (0)
+#define SLAVE_DEVICE_ADDRESS_MIN (1)
+#define SLAVE_DEVICE_ADDRESS_MAX (247)
+/* devide address constants end */
 
 
-/* rtu pdu size begin */
-#define RTU_FRAME_FUNCTION_CODE_CHAR_SIZE (1)
-#define RTU_FRAME_DATA_CHAR_MAXIMUM_SIZE (252)
-#define RTU_FRAME_ADDRESS_CHAR_OFFSET (0)
-/* rtu pdu size end */
 
-
-/* rtu fram field bytes begin */
+/* rtu frame field bytes constants begin */
 // byte size of device address field, fixed at 1 byte
 #define RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES (1)
 // byte size of function code field, fixed at 1 byte
 #define RTU_FRAME_FUNCTION_CODE_FIELE_BYTES (1)
 #define RTU_FRAME_CRC_FIELD_BYTES (2)
-#define RTU_FRAME_CHAR_MAXIMUM_SIZE (256)
-/* rtu fram field bytes end */
+#define RTU_FRAME_DATA_FIELD_MAXIMUM_BYTES (252)
+
+// the maximum size of a modbus rtu frame is 256 bytes
+#define RTU_FRAME_CHAR_MAXIMUM_BYTES (RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES + \
+    RTU_FRAME_FUNCTION_CODE_FIELE_BYTES + RTU_FRAME_DATA_FIELD_MAXIMUM_BYTES + \
+    RTU_FRAME_CRC_FIELD_BYTES)
+/* rtu frame field bytes constants end */
 
 
 
-
-void enable();
+/**
+ * init serial protocol
+ */
+void initSerialProtocol();
 
 void serialReceiveByte(char *byte);
 #endif

@@ -8,24 +8,20 @@
  * node address
  */
 static unsigned char address;
-static NodeWorkMode workMode;
+static ModbusDeviceWorkMode workMode;
 static Boolean enabled = TRUE;
 
 
 /**
  * hold received bytes in one frame
  */
-static unsigned char bytesBuffer[RTU_FRAME_CHAR_MAXIMUM_SIZE];
+static unsigned char bytesBuffer[RTU_FRAME_CHAR_MAXIMUM_BYTES];
 static unsigned char receivedBytesBufferPosition = 0;
 static unsigned char transmittedBytesBufferPosition = 0;
 
 
 static volatile ModbusReceiverState receiverState = RECEIVER_IDLE_STATE;
 static volatile ModbusTransmitterState transmitterState = TRANSMITTER_IDLE_STATE;
-
-
-static void initRtuMaster(ModbusNodeWorkContext * context);
-static void initRtuSlave(ModbusNodeWorkContext * context);
 
 
 /**
@@ -42,22 +38,25 @@ static void performFunction(unsigned char *pduFrame, unsigned char *pduFrameByte
 
 /**
  * initialize rtu protocol
+ *
+ * @param workContext modbus device work context
  */
-void initRtu(ModbusNodeWorkContext * context)
+void initRtu(ModbusDeviceWorkContext * workContext)
 {
-    if (context->workMode == NODE_ROLE_MASTER)
+    if (workContext->workMode == WORK_MODE_MASTER)
     {
-        address = MASTER_NODE_ADDRESS;
+        address = MASTER_DEVICE_ADDRESS;
+        workMode = WORK_MODE_MASTER;
     }
-    else if (context->workMode == NODE_ROLE_SLAVE)
+    else if (workContext->workMode == WORK_MODE_SLAVE)
     {
-        if (context->address < MIN_SLAVE_NODE_ADDRESS || context->address > MAX_SLAVE_NODE_ADDRESS)
+        if (workContext->address < SLAVE_DEVICE_ADDRESS_MIN || workContext->address > SLAVE_DEVICE_ADDRESS_MAX)
         {
             return;
         }
 
-        address = context->address;
-        workMode = NODE_ROLE_SLAVE;
+        address = workContext->address;
+        workMode = WORK_MODE_SLAVE;
     }
     else
     {
@@ -78,7 +77,8 @@ void enableRtuSlave()
 }
 
 
-void disable1()
+
+void disableRtuSlave()
 {
     if (enabled)
     {
@@ -146,7 +146,7 @@ static void performFunction(unsigned char *pduFrame, unsigned char *pduFrameByte
 
 void startRtuMaster()
 {
-    static unsigned char sendCharBuffer[RTU_FRAME_CHAR_MAXIMUM_SIZE];
+    static unsigned char sendCharBuffer[RTU_FRAME_CHAR_MAXIMUM_BYTES];
 
     sendCharBuffer[0] = 0x01;
     sendCharBuffer[1] = 0x06;
@@ -194,7 +194,7 @@ extern void receiveByteCallback()
             enableTimers();
             break;
         case RECEIVING_STATE:
-            if (receivedBytesBufferPosition < RTU_FRAME_CHAR_MAXIMUM_SIZE)
+            if (receivedBytesBufferPosition < RTU_FRAME_CHAR_MAXIMUM_BYTES)
             {
                 bytesBuffer[receivedBytesBufferPosition++] = receivedByte;
                 enableTimers();

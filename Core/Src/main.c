@@ -96,10 +96,10 @@ int main(void)
   enableUSART1ReceiveIT();
 
   // init slave
-  ModbusNodeWorkContext nodeContext;
-  nodeContext.workMode = NODE_ROLE_SLAVE;
-  nodeContext.address = 0x01;
-  initRtu(&nodeContext);
+  ModbusDeviceWorkContext workContext;
+  workContext.workMode = WORK_MODE_SLAVE;
+  workContext.address = 0x01;
+  initRtu(&workContext);
   // enableUSART1TransEmptyIT();
   /* USER CODE END 2 */
 
