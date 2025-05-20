@@ -1,7 +1,7 @@
 
 /* ----------------------- Modbus includes ----------------------------------*/
 #include "datatype.h"
-#include "modbusprotocol.h"
+#include "modbusrtuprotocol.h"
 
 
 /* ----------------------- static functions ---------------------------------*/

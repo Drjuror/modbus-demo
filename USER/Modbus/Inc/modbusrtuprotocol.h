@@ -1,16 +1,50 @@
-#ifndef __MODBUS_SERIAL_PROTOCOL_H
-#define __MODBUS_SERIAL_PROTOCOL_H
+#ifndef __MODBUS_RTU_PROTOCOL_H
+#define __MODBUS_RTU_PROTOCOL_H
 
 
 /**
- * Modbus serial supports two transmission modes. Either ASCII or RTU.
+ * modbus devices work mode includes master mode and slave mode.
  */
 typedef enum
 {
-    SERIAL_TRANSMISSION_MODE_RTU,
-    SERIAL_TRANSMISSION_MODE_ASCII
-} SerialTransmissionMode;
+    WORK_MODE_MASTER,
+    WORK_MODE_SLAVE
+} ModbusDeviceWorkMode;
 
+
+
+/**
+ * Modbus Node work context includes the work mode, address.
+ */
+typedef struct
+{
+    ModbusDeviceWorkMode workMode; // master or slave
+    unsigned char address; // slave address
+} ModbusDeviceWorkContext;
+
+
+
+typedef enum
+{
+    FRAME_RECEIVED_EVENT, // frame received
+    FRAME_TRANSMITTED_EVENT // frame transmitted
+} ModbusSlaveEvent;
+
+
+
+typedef enum
+{
+    RECEIVER_IDLE_STATE,
+    RECEIVING_STATE,
+} ModbusReceiverState;
+
+
+
+typedef enum
+{
+    TRANSMITTER_IDLE_STATE,
+    TRANSMITTING_STATE,
+} ModbusTransmitterState;
 
 
 /* devide address constants start */

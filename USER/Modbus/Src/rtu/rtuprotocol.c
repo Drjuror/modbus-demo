@@ -1,5 +1,4 @@
-#include "modbusprotocol.h"
-#include "serialprotocol.h"
+#include "modbusrtuprotocol.h"
 #include "function.h"
 #include "datatype.h"
 

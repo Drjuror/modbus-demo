@@ -1,5 +1,5 @@
 #include "function.h"
-#include "serialprotocol.h"
+#include "modbusrtuprotocol.h"
 
 
 // byte size of starting address field, fixed at 2 bytes
@@ -22,9 +22,9 @@
  * @param registerQuantity number of input registers
  */
 static void fillRegisterDataIntoPduFrame(unsigned char *pduFrame,
-    unsigned char *pduFrameBytes,
-    unsigned short startingAddress,
-    unsigned short registerQuantity);
+                                         unsigned char *pduFrameBytes,
+                                         unsigned short startingAddress,
+                                         unsigned short registerQuantity);
 
 
 /**
@@ -71,8 +71,10 @@ extern void readInputRegister(unsigned char *pduFrame, unsigned char *pduFrameBy
 }
 
 
-static void fillRegisterDataIntoPduFrame(unsigned char *pduFrame, unsigned char *pduFrameBytes,
-    unsigned short startingAddress, unsigned short registerQuantity)
+static void fillRegisterDataIntoPduFrame(unsigned char *pduFrame,
+                                         unsigned char *pduFrameBytes,
+                                         unsigned short startingAddress,
+                                         unsigned short registerQuantity)
 {
     // todo just for test
     unsigned short testNumber = 0x01;

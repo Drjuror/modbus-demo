@@ -2,6 +2,7 @@
     "files.associations": {
         "modbusprotocol.h": "c",
         "datatype.h": "c",
-        "serialprotocol.h": "c"
+        "serialprotocol.h": "c",
+        "modbusrtuprotocol.h": "c"
     }
 }
