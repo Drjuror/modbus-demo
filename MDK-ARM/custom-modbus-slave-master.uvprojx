@@ -540,9 +540,9 @@
               <FilePath>..\USER\Modbus\Src\function\functioninputregister.c</FilePath>
             </File>
             <File>
-              <FileName>mbcrc.c</FileName>
+              <FileName>crc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\Modbus\Src\mbcrc.c</FilePath>
+              <FilePath>..\USER\Modbus\Src\crc.c</FilePath>
             </File>
           </Files>
         </Group>

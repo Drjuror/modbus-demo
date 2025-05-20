@@ -1,41 +1,67 @@
 #include "function.h"
+#include "serialprotocol.h"
 
-#define ADDRESS_FIELD_BYTES (2)
+
+// byte size of starting address field, fixed at 2 bytes
+#define STARTING_ADDRESS_FIELD_BYTES (2)
+// byte size of the quantity of input registers field, fixed at 2 bytes
 #define QUANTITY_FIELD_BYTES (2)
-#define PDU_BYTES (1 + ADDRESS_FIELD_BYTES + QUANTITY_FIELD_BYTES)
+// total byte size of pdu, including function code, starting address and quantity of input registers
+#define PDU_BYTES (RTU_FRAME_FUNCTION_CODE_FIELE_BYTES + STARTING_ADDRESS_FIELD_BYTES + QUANTITY_FIELD_BYTES)
 
-#define REGISTER_QUANTITY_MAX (0x7D)
-
-unsigned short registerData[4];
-
-void fillRegisterData(unsigned char *pdu, unsigned short startingAddress, unsigned short registerQuantity);
+// maximum number of input registers
+#define REGISTER_QUANTITY_MAXIMUM (0x7D)
 
 
-extern void readInputRegister(unsigned char *pdu, unsigned char *pduLength)
+/**
+ * fill register data into pdu frame
+ *
+ * @param pduFrame         pdu frame
+ * @param pduFrameBytes    byte size of pdu frame
+ * @param startingAddress  starting address of input register
+ * @param registerQuantity number of input registers
+ */
+static void fillRegisterDataIntoPduFrame(unsigned char *pduFrame,
+    unsigned char *pduFrameBytes,
+    unsigned short startingAddress,
+    unsigned short registerQuantity);
+
+
+/**
+ * read input register function
+ *
+ * @param pduFrame      pdu frame
+ * @param pduFrameBytes byte size of pdu frame
+ */
+extern void readInputRegister(unsigned char *pduFrame, unsigned char *pduFrameBytes)
 {
-    if (* pduLength != PDU_BYTES)
+    if (*pduFrameBytes != PDU_BYTES)
     {
         return;
     }
 
-    unsigned char index = 1;
+    unsigned char index = 0;
     // function code check
-    if (pdu[index] != FUNCTION_CODE_READ_INPUT_REGISTER)
+    if (pduFrame[index] != READ_INPUT_REGISTER_FUNCTION_CODE)
     {
         return;
     }
 
     index++;
-    unsigned short startingAddress = (unsigned short) (pdu[index++] << 8);
-    startingAddress |= (unsigned short) pdu[index++];
+
+    // extracet starting address
+    unsigned short startingAddress = (unsigned short) (pduFrame[index++] << 8);
+    startingAddress |= (unsigned short) pduFrame[index++];
+    // address starts from 1 not 0 actually
     startingAddress++;
 
-    unsigned short registerQuantity = (unsigned short) (pdu[index++] << 8);
-    registerQuantity |= (unsigned short) pdu[index++];
-
-    if (registerQuantity > 0 && registerQuantity <= REGISTER_QUANTITY_MAX)
+    // extracet input register quantity
+    unsigned short registerQuantity = (unsigned short) (pduFrame[index++] << 8);
+    registerQuantity |= (unsigned short) pduFrame[index++];
+    // check input register quantity
+    if (registerQuantity > 0 && registerQuantity <= REGISTER_QUANTITY_MAXIMUM)
     {
-        fillRegisterData(pdu, startingAddress, registerQuantity);
+        fillRegisterDataIntoPduFrame(pduFrame, pduFrameBytes, startingAddress, registerQuantity);
     }
     else
     {
@@ -45,26 +71,33 @@ extern void readInputRegister(unsigned char *pdu, unsigned char *pduLength)
 }
 
 
-void fillRegisterData(unsigned char *pdu, unsigned short startingAddress, unsigned short registerQuantity)
+static void fillRegisterDataIntoPduFrame(unsigned char *pduFrame, unsigned char *pduFrameBytes,
+    unsigned short startingAddress, unsigned short registerQuantity)
 {
-    registerData[0] = 0x11;
-    registerData[1] = 0x22;
-    registerData[2] = 0x33;
-    registerData[3] = 0x44;
+    // todo just for test
+    unsigned short testNumber = 0x01;
 
-    pdu++;
-    pdu++;
+    *pduFrameBytes = RTU_FRAME_FUNCTION_CODE_FIELE_BYTES;
+    // move pdu frame pointer to the first byte of data field
+    pduFrame++;
 
+    // set byte count field, fixed at 1 byte
     // each register occupies 2 bytes
-    *pdu = (unsigned char) 2 * registerQuantity;
-    pdu++;
+    *pduFrame = (unsigned char) 2 * registerQuantity;
+    pduFrame++;
+    *pduFrameBytes += 1;
 
     unsigned char index = 0;
     for (index = 0; index < registerQuantity; index++)
     {
-        *pdu = registerData[index] >> 8;
-		pdu++;
-        *pdu = registerData[index] & 0xff;
-		pdu++;
+        // take high-order byte
+        *pduFrame = testNumber >> 8;
+		pduFrame++;
+        *pduFrameBytes += 1;
+
+        // take low-order byte
+        *pduFrame = testNumber & 0xff;
+		pduFrame++;
+        *pduFrameBytes += 1;
     }
 }

@@ -13,22 +13,13 @@ typedef enum
 
 
 /**
- * Modbus Node work context includes the work mode, address, baudrate and parity.
+ * Modbus Node work context includes the work mode, address.
  */
 typedef struct
 {
     NodeWorkMode workMode; // master or slave
     unsigned char address; // slave address
-    unsigned long baudrate;
-    unsigned char parity;
 } ModbusNodeWorkContext;
-
-
-typedef enum
-{
-    MODBUS_PROTOCOL_RTU,
-    MODBUS_PROTOCOL_ASCII
-} Nodes;
 
 
 typedef enum
@@ -50,7 +41,6 @@ typedef enum
     TRANSMITTER_IDLE_STATE,
     TRANSMITTING_STATE,
 } ModbusTransmitterState;
-
 
 
 void t35TimerExpiredCallback();

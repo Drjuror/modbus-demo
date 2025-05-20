@@ -27,11 +27,14 @@ typedef enum
 /* rtu pdu size end */
 
 
-/* rtu adu size begin */
-#define RTU_FRAME_ADDRESS_CHAR_SIZE (1)
-#define RTU_FRAME_CRC_CHAR_SIZE (2)
+/* rtu fram field bytes begin */
+// byte size of device address field, fixed at 1 byte
+#define RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES (1)
+// byte size of function code field, fixed at 1 byte
+#define RTU_FRAME_FUNCTION_CODE_FIELE_BYTES (1)
+#define RTU_FRAME_CRC_FIELD_BYTES (2)
 #define RTU_FRAME_CHAR_MAXIMUM_SIZE (256)
-/* rtu adu size begin */
+/* rtu fram field bytes end */
 
 
 

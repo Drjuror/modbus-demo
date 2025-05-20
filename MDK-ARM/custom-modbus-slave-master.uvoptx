@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>188</LineNumber>
+          <LineNumber>97</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134223664</Address>
+          <Address>134223640</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,14 +163,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\USER\Modbus\Src\rtu\rtuprotocol.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\custom_modbus_slave_master\../USER/Modbus/Src/rtu/rtuprotocol.c\188</Expression>
+          <Expression>\\custom_modbus_slave_master\../USER/Modbus/Src/rtu/rtuprotocol.c\97</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>pdu</ItemText>
+          <ItemText>context-&gt;address</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
@@ -180,12 +180,32 @@
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>transmitterState</ItemText>
+          <ItemText>address</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>transmittedBytesBufferPosition</ItemText>
+          <ItemText>workMode</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>context</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>nodeContext</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>nodeContext-&gt;workMode</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>pduFrameBytes</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -594,7 +614,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>27</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\Modbus\Src\function\functioninputregister.c</PathWithFileName>
@@ -609,8 +629,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\USER\Modbus\Src\mbcrc.c</PathWithFileName>
-      <FilenameWithoutPath>mbcrc.c</FilenameWithoutPath>
+      <PathWithFileName>..\USER\Modbus\Src\crc.c</PathWithFileName>
+      <FilenameWithoutPath>crc.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

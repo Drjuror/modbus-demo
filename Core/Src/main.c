@@ -22,6 +22,7 @@
 #include "usart.h"
 #include "gpio.h"
 #include "serialprotocol.h"
+#include "modbusprotocol.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -93,7 +94,12 @@ int main(void)
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   enableUSART1ReceiveIT();
-  initRtu();
+
+  // init slave
+  ModbusNodeWorkContext nodeContext;
+  nodeContext.workMode = NODE_ROLE_SLAVE;
+  nodeContext.address = 0x01;
+  initRtu(&nodeContext);
   // enableUSART1TransEmptyIT();
   /* USER CODE END 2 */
 

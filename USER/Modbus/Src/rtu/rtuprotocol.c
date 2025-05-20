@@ -6,7 +6,7 @@
 /**
  * node address
  */
-static unsigned char address = 0x01;
+static unsigned char address;
 static NodeWorkMode workMode;
 static Boolean enabled = TRUE;
 
@@ -73,6 +73,9 @@ void disable1()
 }
 
 
+/**
+ * start rtu slave
+ */
 void startRtuSlave()
 {
     ModbusSlaveEvent publishedEvent;
@@ -80,16 +83,23 @@ void startRtuSlave()
         return;
     }
 
-    unsigned char length = receivedBytesBufferPosition - RTU_FRAME_ADDRESS_CHAR_SIZE - RTU_FRAME_CRC_CHAR_SIZE;
     switch (publishedEvent) {
         case FRAME_RECEIVED_EVENT:
-            readInputRegister(&bytesBuffer, &length);
+            unsigned char *pduFrame = (unsigned char *) &bytesBuffer;
+            // move pdu frame pointer to the first byte of pdu frame, function code field actually
+            pduFrame++;
 
-            unsigned short crc16 = usMBCRC16(&bytesBuffer, 11);
-            // low
-            bytesBuffer[11] = (unsigned char) (crc16 & 0xFF);
-            // high
-            bytesBuffer[12] = (unsigned char) (crc16 >> 8);
+            unsigned char pduFrameBytes = receivedBytesBufferPosition - RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES - RTU_FRAME_CRC_FIELD_BYTES;
+            readInputRegister(pduFrame, &pduFrameBytes);
+
+            // compute CRC16
+            pduFrameBytes += RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES;
+            unsigned short crc16 = computeCRC16(&bytesBuffer, pduFrameBytes);
+            // low-order byte
+            bytesBuffer[pduFrameBytes] = (unsigned char) (crc16 & 0xFF);
+            // high-order byte
+            pduFrameBytes++;
+            bytesBuffer[pduFrameBytes] = (unsigned char) (crc16 >> 8);
 
             receiverState = RECEIVER_IDLE_STATE;
             transmitterState = TRANSMITTING_STATE;

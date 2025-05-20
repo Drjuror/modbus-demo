@@ -55,17 +55,17 @@ static const unsigned char aucCRCLo[] = {
 /**
  * compute CRC16
  */
-extern unsigned short usMBCRC16(unsigned char *pucFrame, unsigned short usLen)
+extern unsigned short computeCRC16(unsigned char *pucFrame, unsigned short usLen)
 {
-    unsigned char           ucCRCHi = 0xFF;
-    unsigned char           ucCRCLo = 0xFF;
-    int             iIndex;
+    unsigned char ucCRCHi = 0xFF;
+    unsigned char ucCRCLo = 0xFF;
+    int index;
 
     while (usLen--)
     {
-        iIndex = ucCRCLo ^ * (pucFrame++);
-        ucCRCLo = (unsigned char) (ucCRCHi ^ aucCRCHi[iIndex]);
-        ucCRCHi = aucCRCLo[iIndex];
+        index = ucCRCLo ^ *(pucFrame++);
+        ucCRCLo = (unsigned char) (ucCRCHi ^ aucCRCHi[index]);
+        ucCRCHi = aucCRCLo[index];
     }
     return (unsigned short)(ucCRCHi << 8 | ucCRCLo);
 }
