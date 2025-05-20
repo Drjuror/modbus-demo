@@ -1,5 +1,6 @@
 #include "modbusprotocol.h"
 #include "serialprotocol.h"
+#include "function.h"
 #include "datatype.h"
 
 
@@ -10,12 +11,13 @@ static unsigned char address;
 static NodeWorkMode workMode;
 static Boolean enabled = TRUE;
 
+
 /**
  * hold received bytes in one frame
  */
 static unsigned char bytesBuffer[RTU_FRAME_CHAR_MAXIMUM_SIZE];
-static unsigned short receivedBytesBufferPosition = 0;
-static unsigned short transmittedBytesBufferPosition = 0;
+static unsigned char receivedBytesBufferPosition = 0;
+static unsigned char transmittedBytesBufferPosition = 0;
 
 
 static volatile ModbusReceiverState receiverState = RECEIVER_IDLE_STATE;
@@ -24,6 +26,18 @@ static volatile ModbusTransmitterState transmitterState = TRANSMITTER_IDLE_STATE
 
 static void initRtuMaster(ModbusNodeWorkContext * context);
 static void initRtuSlave(ModbusNodeWorkContext * context);
+
+
+/**
+ * perform function
+ *
+ * <p>it must be noted that,
+ * @param pduFrame and @param pduFrameBytes will be filled response data after function call</p>
+ *
+ * @param pduFrame      pdu frame
+ * @param pduFrameBytes byte size of pdu frame
+ */
+static void performFunction(unsigned char *pduFrame, unsigned char *pduFrameBytes);
 
 
 /**
@@ -89,25 +103,40 @@ void startRtuSlave()
             // move pdu frame pointer to the first byte of pdu frame, function code field actually
             pduFrame++;
 
-            unsigned char pduFrameBytes = receivedBytesBufferPosition - RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES - RTU_FRAME_CRC_FIELD_BYTES;
-            readInputRegister(pduFrame, &pduFrameBytes);
+            unsigned char pduFrameBytes = receivedBytesBufferPosition -
+                RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES - RTU_FRAME_CRC_FIELD_BYTES;
+            performFunction(pduFrame, &pduFrameBytes);
 
             // compute CRC16
             pduFrameBytes += RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES;
             unsigned short crc16 = computeCRC16(&bytesBuffer, pduFrameBytes);
             // low-order byte
-            bytesBuffer[pduFrameBytes] = (unsigned char) (crc16 & 0xFF);
+            bytesBuffer[pduFrameBytes++] = (unsigned char) (crc16 & 0xFF);
             // high-order byte
-            pduFrameBytes++;
-            bytesBuffer[pduFrameBytes] = (unsigned char) (crc16 >> 8);
+            bytesBuffer[pduFrameBytes++] = (unsigned char) (crc16 >> 8);
 
             receiverState = RECEIVER_IDLE_STATE;
             transmitterState = TRANSMITTING_STATE;
             transmittedBytesBufferPosition = 0;
-
+            receivedBytesBufferPosition = pduFrameBytes;
             enableUSART1TransEmptyIT();
             break;
         case FRAME_TRANSMITTED_EVENT:
+            break;
+        default:
+            break;
+    }
+}
+
+
+static void performFunction(unsigned char *pduFrame, unsigned char *pduFrameBytes)
+{
+    unsigned char functionCode = pduFrame[0];
+    switch (functionCode)
+    {
+        // only supports read input register function code
+        case READ_INPUT_REGISTER_FUNCTION_CODE:
+            readInputRegister(pduFrame, pduFrameBytes);
             break;
         default:
             break;
@@ -133,6 +162,9 @@ void startRtuMaster()
 }
 
 
+/**
+ * callback for receiving byte
+ */
 extern void receiveByteCallback()
 {
    //  take away received byte from serial port
@@ -169,7 +201,7 @@ extern void receiveByteCallback()
             }
             else
             {
-                // exception handler
+                // todo exception handler
             }
             break;
         default:
@@ -178,7 +210,9 @@ extern void receiveByteCallback()
 }
 
 
-
+/**
+ * transmit byte callback
+ */
 extern void transmitByteCallback()
 {
     switch (transmitterState)
@@ -186,7 +220,7 @@ extern void transmitByteCallback()
         case TRANSMITTER_IDLE_STATE:
             break;
         case TRANSMITTING_STATE:
-            if (transmittedBytesBufferPosition < 13)
+            if (transmittedBytesBufferPosition < receivedBytesBufferPosition)
             {
                 transmitByte(bytesBuffer[transmittedBytesBufferPosition++]);
             }
@@ -202,7 +236,7 @@ extern void transmitByteCallback()
 
 
 /**
- *
+ * t35 timer expired callback
  */
 void t35TimerExpiredCallback()
 {
