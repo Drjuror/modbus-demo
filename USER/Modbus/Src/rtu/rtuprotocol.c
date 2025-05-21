@@ -100,6 +100,8 @@ void startRtuSlavePoll()
 
     switch (publishedEvent) {
         case FRAME_RECEIVED_EVENT:
+            disableUSART1ReceiveIT();
+
             unsigned char *pduFrame = (unsigned char *) &bytesBuffer;
             // move pdu frame pointer to the first byte of pdu frame, function code field actually
             pduFrame++;
@@ -123,6 +125,9 @@ void startRtuSlavePoll()
             enableUSART1TransEmptyIT();
             break;
         case FRAME_TRANSMITTED_EVENT:
+            disableUSART1TransEmptyIT();
+            transmitterState = TRANSMITTER_IDLE_STATE;
+            enableUSART1ReceiveIT();
             break;
         default:
             break;
@@ -210,9 +215,7 @@ extern void transmitByteCallback()
             }
             else
             {
-                disableUSART1TransEmptyIT();
-                transmitterState = TRANSMITTER_IDLE_STATE;
-                enableUSART1ReceiveIT();
+                publishEvent(FRAME_TRANSMITTED_EVENT);
             }
             break;
         default:
@@ -233,7 +236,6 @@ void t35TimerExpiredCallback()
             break;
         case RECEIVING_STATE: // means a frame received
             publishEvent(FRAME_RECEIVED_EVENT);
-            disableUSART1ReceiveIT();
             break;
         default:
             break;

@@ -24,8 +24,8 @@ typedef struct
 
 typedef enum
 {
-    FRAME_RECEIVED_EVENT, // frame received
-    FRAME_TRANSMITTED_EVENT // frame transmitted
+    FRAME_RECEIVED_EVENT, // a frame received
+    FRAME_TRANSMITTED_EVENT // a frame transmitted
 } ModbusSlaveEvent;
 
 
