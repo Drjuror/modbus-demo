@@ -94,11 +94,12 @@ int main(void)
   /* USER CODE BEGIN 2 */
   enableUSART1ReceiveIT();
 
-  // init slave
+  // init rtu
   ModbusDeviceWorkContext workContext;
   workContext.workMode = WORK_MODE_SLAVE;
   workContext.address = 0x01;
   initRtu(&workContext);
+  enableRtuSlave();
   // enableUSART1TransEmptyIT();
   /* USER CODE END 2 */
 
@@ -107,7 +108,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    startRtuSlave();
+    startRtuSlavePoll();
     // startRtuMaster();
     // HAL_Delay(3000);
     /* USER CODE BEGIN 3 */

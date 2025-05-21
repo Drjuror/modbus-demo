@@ -1,14 +1,33 @@
-#### 测试
+#### 从机
 
-基于有限状态机（FSM）实现，
+##### 启动流程
+
+<img src="../../../../../../文档/jianguoyun/我的坚果云/笔记/绘图/modbus-rtu流程-从-启动流程.drawio-1747839378750-4.png" style="zoom: 67%;" />
+
+##### 
+
+##### 工作原理
+
+基于有限状态机（FSM）实现，从机的整体状态流转如下图：
+
+![](../../../../../../文档/jianguoyun/我的坚果云/笔记/绘图/modbus-rtu流程-从-状态机-不能同时收发.drawio-1747844478916-7.png)
 
 
 
-#### 示意图
+#### 编码原则
 
-![alt text](modbus-rtu流程-从-状态机.png)
+1. 定时器、串口中断的回调处理，要尽量简短
+
+
+
+#### 测试软件
+
+1. modbus poll，可测试从机的实现
+2. modbus slave，可测试主机的实现
+3. Device Monitoring Studio，串口通信数据抓包
 
 #### 参考资料
+
 1. MODBUS over serial line specification and implementation guide V1.02
 2. MODBUS APPLICATION PROTOCOL SPECIFICATION V1.1b3
 3. 代码实现参考：https://www.embedded-experts.at/en/freemodbus-downloads/

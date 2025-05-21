@@ -12,7 +12,6 @@ typedef enum
 } ModbusDeviceWorkMode;
 
 
-
 /**
  * Modbus Node work context includes the work mode, address.
  */
@@ -21,7 +20,6 @@ typedef struct
     ModbusDeviceWorkMode workMode; // master or slave
     unsigned char address; // slave address
 } ModbusDeviceWorkContext;
-
 
 
 typedef enum
@@ -55,7 +53,6 @@ typedef enum
 /* devide address constants end */
 
 
-
 /* rtu frame field bytes constants begin */
 // byte size of device address field, fixed at 1 byte
 #define RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES (1)
@@ -70,12 +67,4 @@ typedef enum
     RTU_FRAME_CRC_FIELD_BYTES)
 /* rtu frame field bytes constants end */
 
-
-
-/**
- * init serial protocol
- */
-void initSerialProtocol();
-
-void serialReceiveByte(char *byte);
 #endif

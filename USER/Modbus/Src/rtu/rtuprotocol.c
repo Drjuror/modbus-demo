@@ -3,17 +3,13 @@
 #include "datatype.h"
 
 
-/**
- * node address
- */
+// node address
 static unsigned char address;
 static ModbusDeviceWorkMode workMode;
-static Boolean enabled = TRUE;
+static volatile Boolean enabled = TRUE;
 
 
-/**
- * hold received bytes in one frame
- */
+// hold bytes in one frame whatever received or transmitted
 static unsigned char bytesBuffer[RTU_FRAME_CHAR_MAXIMUM_BYTES];
 static unsigned char receivedBytesBufferPosition = 0;
 static unsigned char transmittedBytesBufferPosition = 0;
@@ -27,7 +23,8 @@ static volatile ModbusTransmitterState transmitterState = TRANSMITTER_IDLE_STATE
  * perform function
  *
  * <p>it must be noted that,
- * @param pduFrame and @param pduFrameBytes will be filled response data after function call</p>
+ * @param pduFrame and @param pduFrameBytes will be filled response data
+ * </p>
  *
  * @param pduFrame      pdu frame
  * @param pduFrameBytes byte size of pdu frame
@@ -87,12 +84,17 @@ void disableRtuSlave()
 
 
 /**
- * start rtu slave
+ * start rtu slave poll
  */
-void startRtuSlave()
+void startRtuSlavePoll()
 {
+    if (!enabled)
+    {
+        return;
+    }
+
     ModbusSlaveEvent publishedEvent;
-    if (!getEvent(& publishedEvent)) {
+    if (!getEvent(&publishedEvent)) {
         return;
     }
 
@@ -143,24 +145,6 @@ static void performFunction(unsigned char *pduFrame, unsigned char *pduFrameByte
 }
 
 
-void startRtuMaster()
-{
-    static unsigned char sendCharBuffer[RTU_FRAME_CHAR_MAXIMUM_BYTES];
-
-    sendCharBuffer[0] = 0x01;
-    sendCharBuffer[1] = 0x06;
-    sendCharBuffer[2] = 0x00;
-    sendCharBuffer[3] = 0x00;
-    sendCharBuffer[4] = 0x04;
-    sendCharBuffer[5] = 0x57;
-    sendCharBuffer[6] = 0xCA;
-    sendCharBuffer[7] = 0xF4;
-    for (int i = 0; i < 8; i++) {
-        transmitByte(sendCharBuffer[i]);
-    }
-}
-
-
 /**
  * callback for receiving byte
  */
@@ -168,7 +152,7 @@ extern void receiveByteCallback()
 {
    //  take away received byte from serial port
     unsigned char receivedByte;
-    serialReceiveByte((char *) &receivedByte);
+    receiveByteFromSerial((char *) &receivedByte);
 
     if (transmitterState != TRANSMITTER_IDLE_STATE)
     {
@@ -190,13 +174,13 @@ extern void receiveByteCallback()
             bytesBuffer[receivedBytesBufferPosition++] = receivedByte;
             receiverState = RECEIVING_STATE;
             // start a t35 timer
-            enableTimers();
+            enableTT35Timer();
             break;
         case RECEIVING_STATE:
             if (receivedBytesBufferPosition < RTU_FRAME_CHAR_MAXIMUM_BYTES)
             {
                 bytesBuffer[receivedBytesBufferPosition++] = receivedByte;
-                enableTimers();
+                enableTT35Timer();
             }
             else
             {
@@ -207,6 +191,7 @@ extern void receiveByteCallback()
             break;
     }
 }
+
 
 
 /**
@@ -230,6 +215,8 @@ extern void transmitByteCallback()
                 enableUSART1ReceiveIT();
             }
             break;
+        default:
+            break;
     }
 }
 
@@ -241,9 +228,10 @@ void t35TimerExpiredCallback()
 {
     switch (receiverState)
     {
+        // ignore when receiver is idle
         case RECEIVER_IDLE_STATE:
             break;
-        case RECEIVING_STATE:
+        case RECEIVING_STATE: // means a frame received
             publishEvent(FRAME_RECEIVED_EVENT);
             disableUSART1ReceiveIT();
             break;
@@ -251,5 +239,6 @@ void t35TimerExpiredCallback()
             break;
     }
 
-    disableTimers();
+    // disable t35 timer
+    disableT35Timer();
 }
