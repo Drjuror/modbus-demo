@@ -125,9 +125,8 @@ void startRtuSlavePoll()
             enableUSART1TransEmptyIT();
             break;
         case FRAME_TRANSMITTED_EVENT:
-            disableUSART1TransEmptyIT();
-            transmitterState = TRANSMITTER_IDLE_STATE;
             enableUSART1ReceiveIT();
+            transmitterState = TRANSMITTER_IDLE_STATE;
             break;
         default:
             break;
@@ -215,6 +214,7 @@ extern void transmitByteCallback()
             }
             else
             {
+                disableUSART1TransEmptyIT();
                 publishEvent(FRAME_TRANSMITTED_EVENT);
             }
             break;
