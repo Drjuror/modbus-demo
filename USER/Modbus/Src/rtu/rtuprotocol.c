@@ -33,6 +33,16 @@ static void performFunction(unsigned char *pduFrame, unsigned char *pduFrameByte
 
 
 /**
+ * check received frame
+ *
+ * @param frame      received frame
+ * @param frameBytes byte size of received frame
+ */
+static void checkReceivedFrame(unsigned char *frame, unsigned char *frameBytes);
+
+
+
+/**
  * initialize rtu protocol
  *
  * @param workContext modbus device work context
@@ -103,6 +113,8 @@ void startRtuSlavePoll()
             disableUSART1ReceiveIT();
 
             unsigned char *pduFrame = (unsigned char *) &bytesBuffer;
+            unsigned char *size = (unsigned char *) &receivedBytesBufferPosition;
+            checkReceivedFrame(pduFrame, size);
             // move pdu frame pointer to the first byte of pdu frame, function code field actually
             pduFrame++;
 
@@ -134,6 +146,7 @@ void startRtuSlavePoll()
 }
 
 
+
 static void performFunction(unsigned char *pduFrame, unsigned char *pduFrameBytes)
 {
     unsigned char functionCode = pduFrame[0];
@@ -147,6 +160,27 @@ static void performFunction(unsigned char *pduFrame, unsigned char *pduFrameByte
             break;
     }
 }
+
+
+static void checkReceivedFrame(unsigned char *frame, unsigned char *frameBytes)
+{
+    // check frame length
+    if (*frameBytes < RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES + RTU_FRAME_FUNCTION_CODE_FIELE_BYTES +
+        RTU_FRAME_CRC_FIELD_BYTES)
+    {
+        return;
+    }
+
+    // check CRC16
+    unsigned short crc16 = computeCRC16(frame, *frameBytes - RTU_FRAME_CRC_FIELD_BYTES);
+    unsigned short receivedCrc16 = (unsigned short) (frame[*frameBytes - 1] << 8);
+    receivedCrc16 |= (unsigned short) frame[*frameBytes - 2];
+    if (crc16 != receivedCrc16)
+    {
+        return;
+    }
+}
+
 
 
 /**
@@ -222,6 +256,7 @@ extern void transmitByteCallback()
             break;
     }
 }
+
 
 
 /**
