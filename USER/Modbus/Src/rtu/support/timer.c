@@ -1,5 +1,5 @@
 #include "datatype.h"
-#include "modbusrtuprotocol.h"
+#include "modbusrtumode.h"
 
 
 /**

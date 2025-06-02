@@ -1,5 +1,5 @@
 
-#include "modbusrtuprotocol.h"
+#include "modbusrtumode.h"
 
 
 /**

@@ -3,6 +3,7 @@
         "modbusprotocol.h": "c",
         "datatype.h": "c",
         "serialprotocol.h": "c",
-        "modbusrtuprotocol.h": "c"
+        "modbusrtumode.h": "c",
+        "modbusfunction.h": "c"
     }
 }

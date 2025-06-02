@@ -1,4 +1,4 @@
-#include "modbusrtuprotocol.h"
+#include "modbusrtumode.h"
 #include "datatype.h"
 
 

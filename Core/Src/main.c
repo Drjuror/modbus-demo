@@ -21,7 +21,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-#include "modbusrtuprotocol.h"
+#include "modbusrtumode.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

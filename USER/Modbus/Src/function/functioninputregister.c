@@ -1,5 +1,5 @@
 #include "modbusfunction.h"
-#include "modbusrtuprotocol.h"
+#include "modbusrtumode.h"
 
 
 // byte size of starting address field, fixed at 2 bytes
@@ -7,7 +7,7 @@
 // byte size of the quantity of input registers field, fixed at 2 bytes
 #define QUANTITY_FIELD_BYTES (2)
 // total byte size of pdu, including function code, starting address and quantity of input registers
-#define PDU_BYTES (RTU_FRAME_FUNCTION_CODE_FIELE_BYTES + STARTING_ADDRESS_FIELD_BYTES + QUANTITY_FIELD_BYTES)
+#define PDU_BYTES (RTU_FRAME_FUNCTION_CODE_FIELD_BYTES + STARTING_ADDRESS_FIELD_BYTES + QUANTITY_FIELD_BYTES)
 
 // maximum number of input registers
 #define REGISTER_QUANTITY_MAXIMUM (0x7D)
@@ -76,7 +76,7 @@ static void fillRegisterDataIntoPduFrame(unsigned char *pduFrame,
     // todo just for test
     unsigned short testNumber = 0x01;
 
-    *pduFrameBytes = RTU_FRAME_FUNCTION_CODE_FIELE_BYTES;
+    *pduFrameBytes = RTU_FRAME_FUNCTION_CODE_FIELD_BYTES;
     // move pdu frame pointer to the first byte of data field
     pduFrame++;
 
