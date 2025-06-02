@@ -1,4 +1,4 @@
-#include "function.h"
+#include "modbusfunction.h"
 #include "modbusrtuprotocol.h"
 
 
@@ -53,7 +53,7 @@ extern void readInputRegister(unsigned char *pduFrame, unsigned char *pduFrameBy
     // address starts from 1 not 0 actually
     unsigned short startingAddress = (pduFrame[index++] << 8) | pduFrame[index++] + 1;
 
-    // extracet input register quantity
+    // extract input register quantity
     unsigned short registerQuantity = (pduFrame[index++] << 8) | pduFrame[index++];
     // check input register quantity
     if (registerQuantity > 0 && registerQuantity <= REGISTER_QUANTITY_MAXIMUM)

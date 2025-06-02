@@ -1,5 +1,0 @@
-#ifndef __MODBUS_FUNCTION_H
-#define __MODBUS_FUNCTION_H
-
-#define READ_INPUT_REGISTER_FUNCTION_CODE (0x04)
-#endif

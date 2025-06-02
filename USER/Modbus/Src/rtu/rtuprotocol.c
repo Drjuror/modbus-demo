@@ -1,5 +1,5 @@
 #include "modbusrtuprotocol.h"
-#include "function.h"
+#include "modbusfunction.h"
 #include "datatype.h"
 
 
