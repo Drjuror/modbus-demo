@@ -5,7 +5,6 @@
 
 // node address
 static unsigned char address;
-static ModbusDeviceWorkMode workMode;
 static volatile Boolean enabled = TRUE;
 
 
@@ -47,57 +46,16 @@ static void checkReceivedFrame(unsigned char *frame, unsigned char *frameBytes);
  *
  * @param workContext modbus device work context
  */
-void initRtu(ModbusDeviceWorkContext * workContext)
+extern void initRtuModeSlave(ModbusDeviceWorkContext * workContext)
 {
-    if (workContext->workMode == WORK_MODE_MASTER)
-    {
-        address = MASTER_DEVICE_ADDRESS;
-        workMode = WORK_MODE_MASTER;
-    }
-    else if (workContext->workMode == WORK_MODE_SLAVE)
-    {
-        if (workContext->address < SLAVE_DEVICE_ADDRESS_MIN || workContext->address > SLAVE_DEVICE_ADDRESS_MAX)
-        {
-            return;
-        }
-
-        address = workContext->address;
-        workMode = WORK_MODE_SLAVE;
-    }
-    else
-    {
-        return;
-    }
-}
-
-
-
-void enableRtuSlave()
-{
-    if (enabled)
+     if (workContext->address < SLAVE_DEVICE_ADDRESS_MIN || workContext->address > SLAVE_DEVICE_ADDRESS_MAX)
     {
         return;
     }
 
-    enabled = TRUE;
+    address = workContext->address;
 }
 
-
-
-void disableRtuSlave()
-{
-    if (enabled)
-    {
-        enabled = FALSE;
-    }
-}
-
-
-
-void startRtuMaster()
-{
-    
-}
 
 
 /**

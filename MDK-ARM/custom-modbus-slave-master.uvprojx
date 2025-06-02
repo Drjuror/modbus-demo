@@ -545,6 +545,11 @@
               <FilePath>..\USER\Modbus\Src\rtu\master\rtumastereventcenter.c</FilePath>
             </File>
             <File>
+              <FileName>modbus-rtu-mode-slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Modbus\Src\rtu\slave\modbus-rtu-mode-slave.c</FilePath>
+            </File>
+            <File>
               <FileName>modbus-rtu-mode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Modbus\Src\rtu\modbus-rtu-mode.c</FilePath>

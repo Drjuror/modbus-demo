@@ -98,8 +98,8 @@ int main(void)
   ModbusDeviceWorkContext workContext;
   workContext.workMode = WORK_MODE_SLAVE;
   workContext.address = 0x01;
-  initRtu(&workContext);
-  enableRtuSlave();
+  initRtuMode(&workContext);
+  enableRtuMode();
   // enableUSART1TransEmptyIT();
   /* USER CODE END 2 */
 
