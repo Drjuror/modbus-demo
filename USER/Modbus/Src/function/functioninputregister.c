@@ -51,10 +51,12 @@ extern void readInputRegister(unsigned char *pduFrame, unsigned char *pduFrameBy
 
     // extracet starting address
     // address starts from 1 not 0 actually
-    unsigned short startingAddress = (pduFrame[index++] << 8) | pduFrame[index++] + 1;
+    unsigned short startingAddress = (unsigned short) (pduFrame[index++] << 8);
+    startingAddress |= (unsigned short) pduFrame[index++] + 1;
 
     // extract input register quantity
-    unsigned short registerQuantity = (pduFrame[index++] << 8) | pduFrame[index++];
+    unsigned short registerQuantity = (unsigned short) (pduFrame[index++] << 8);
+    registerQuantity |= (unsigned short) pduFrame[index++];
     // check input register quantity
     if (registerQuantity > 0 && registerQuantity <= REGISTER_QUANTITY_MAXIMUM)
     {

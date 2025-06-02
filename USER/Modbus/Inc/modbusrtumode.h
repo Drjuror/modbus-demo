@@ -29,11 +29,11 @@ typedef enum
 } ModbusSlaveEvent;
 
 
-typedef enum
-{
-    FRAME_RECEIVED_EVENT, // a frame received
-    FRAME_TRANSMITTED_EVENT, // a frame transmitted
-} ModbusMasterEvent;
+// typedef enum
+// {
+//     FRAME_RECEIVED_EVENT, // a frame received
+//     FRAME_TRANSMITTED_EVENT, // a frame transmitted
+// } ModbusMasterEvent;
 
 
 typedef enum

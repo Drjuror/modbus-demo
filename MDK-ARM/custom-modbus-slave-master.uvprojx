@@ -515,11 +515,6 @@
           <GroupName>USER/Modbus</GroupName>
           <Files>
             <File>
-              <FileName>rtuprotocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Modbus\Src\rtu\rtuprotocol.c</FilePath>
-            </File>
-            <File>
               <FileName>rtuslaveeventcenter.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Modbus\Src\rtu\slave\rtuslaveeventcenter.c</FilePath>
@@ -545,14 +540,14 @@
               <FilePath>..\USER\Modbus\Src\rtu\support\serial.c</FilePath>
             </File>
             <File>
-              <FileName>master.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Modbus\Src\rtu\master\master.c</FilePath>
-            </File>
-            <File>
               <FileName>rtumastereventcenter.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Modbus\Src\rtu\master\rtumastereventcenter.c</FilePath>
+            </File>
+            <File>
+              <FileName>modbus-rtu-mode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Modbus\Src\rtu\modbus-rtu-mode.c</FilePath>
             </File>
           </Files>
         </Group>
