@@ -28,4 +28,5 @@
 
 1. MODBUS over serial line specification and implementation guide V1.02
 2. MODBUS APPLICATION PROTOCOL SPECIFICATION V1.1b3
-3. 代码实现参考：https://www.embedded-experts.at/en/freemodbus-downloads/
+3. Modicon Modbus Protocol Reference Guide
+4. 代码实现参考：https://www.embedded-experts.at/en/freemodbus-downloads/

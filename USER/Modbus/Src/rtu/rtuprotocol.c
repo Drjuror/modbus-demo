@@ -93,6 +93,13 @@ void disableRtuSlave()
 }
 
 
+
+void startRtuMaster()
+{
+    
+}
+
+
 /**
  * start rtu slave poll
  */
@@ -173,8 +180,7 @@ static void checkReceivedFrame(unsigned char *frame, unsigned char *frameBytes)
 
     // check CRC16
     unsigned short crc16 = computeCRC16(frame, *frameBytes - RTU_FRAME_CRC_FIELD_BYTES);
-    unsigned short receivedCrc16 = (unsigned short) (frame[*frameBytes - 1] << 8);
-    receivedCrc16 |= (unsigned short) frame[*frameBytes - 2];
+    unsigned short receivedCrc16 = (frame[*frameBytes - 1] << 8) | frame[*frameBytes - 2];
     if (crc16 != receivedCrc16)
     {
         return;
