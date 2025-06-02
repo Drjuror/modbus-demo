@@ -172,16 +172,16 @@ static void performFunction(unsigned char *pduFrame, unsigned char *pduFrameByte
 static void checkReceivedFrame(unsigned char *frame, unsigned char *frameBytes)
 {
     // check frame length
-    if (*frameBytes < RTU_FRAME_DEVICE_ADDRESS_FIELD_BYTES + RTU_FRAME_FUNCTION_CODE_FIELD_BYTES +
-        RTU_FRAME_CRC_FIELD_BYTES)
+    if (*frameBytes < RTU_FRAME_CHAR_MINIMUM_BYTES)
     {
+        // todo handle error: frame length is too short
         return;
     }
 
     // check CRC16
-    unsigned short crc16 = computeCRC16(frame, *frameBytes - RTU_FRAME_CRC_FIELD_BYTES);
+    unsigned short computedCrc16 = computeCRC16(frame, *frameBytes - RTU_FRAME_CRC_FIELD_BYTES);
     unsigned short receivedCrc16 = (frame[*frameBytes - 1] << 8) | frame[*frameBytes - 2];
-    if (crc16 != receivedCrc16)
+    if (computedCrc16 != receivedCrc16)
     {
         return;
     }
