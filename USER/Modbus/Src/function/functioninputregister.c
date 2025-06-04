@@ -84,7 +84,7 @@ static void fillRegisterDataIntoPduFrame(unsigned char *pduFrame,
 
     // set byte count field, fixed at 1 byte
     // each register occupies 2 bytes
-    *pduFrame = (unsigned char) 2 * registerQuantity;
+    *pduFrame = (unsigned char) QUANTITY_FIELD_BYTES * registerQuantity;
     pduFrame++;
     *pduFrameBytes += 1;
 

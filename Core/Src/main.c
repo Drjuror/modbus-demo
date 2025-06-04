@@ -108,9 +108,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    startRtuSlavePoll();
-    // startRtuMaster();
-    // HAL_Delay(3000);
+    // startRtuSlavePoll();
+    startRtuMasterPoll();
+    HAL_Delay(3000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

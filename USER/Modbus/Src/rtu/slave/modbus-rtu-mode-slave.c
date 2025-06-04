@@ -48,7 +48,7 @@ static void checkReceivedFrame(unsigned char *frame, unsigned char *frameBytes);
  */
 extern void initRtuModeSlave(ModbusDeviceWorkContext * workContext)
 {
-     if (workContext->address < SLAVE_DEVICE_ADDRESS_MIN || workContext->address > SLAVE_DEVICE_ADDRESS_MAX)
+    if (workContext->address < SLAVE_DEVICE_ADDRESS_MIN || workContext->address > SLAVE_DEVICE_ADDRESS_MAX)
     {
         return;
     }
@@ -68,7 +68,7 @@ void startRtuSlavePoll()
         return;
     }
 
-    ModbusSlaveEvent publishedEvent;
+    ModbusRtuEvent publishedEvent;
     if (!getEvent(&publishedEvent)) {
         return;
     }

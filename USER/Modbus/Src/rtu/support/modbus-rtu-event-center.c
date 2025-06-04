@@ -2,12 +2,12 @@
 #include "datatype.h"
 
 
-static ModbusSlaveEvent heldEvent;
+static ModbusRtuEvent heldEvent;
 static Boolean hasEvent = FALSE;
 
 
 
-Boolean publishEvent(ModbusSlaveEvent event)
+Boolean publishEvent(ModbusRtuEvent event)
 {
     if (hasEvent)
     {
@@ -21,7 +21,7 @@ Boolean publishEvent(ModbusSlaveEvent event)
 }
 
 
-Boolean getEvent(ModbusSlaveEvent * event)
+Boolean getEvent(ModbusRtuEvent * event)
 {
     if (!hasEvent)
     {

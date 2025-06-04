@@ -515,11 +515,6 @@
           <GroupName>USER/Modbus</GroupName>
           <Files>
             <File>
-              <FileName>rtuslaveeventcenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Modbus\Src\rtu\slave\rtuslaveeventcenter.c</FilePath>
-            </File>
-            <File>
               <FileName>functioninputregister.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Modbus\Src\function\functioninputregister.c</FilePath>
@@ -540,11 +535,6 @@
               <FilePath>..\USER\Modbus\Src\rtu\support\serial.c</FilePath>
             </File>
             <File>
-              <FileName>rtumastereventcenter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Modbus\Src\rtu\master\rtumastereventcenter.c</FilePath>
-            </File>
-            <File>
               <FileName>modbus-rtu-mode-slave.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Modbus\Src\rtu\slave\modbus-rtu-mode-slave.c</FilePath>
@@ -553,6 +543,16 @@
               <FileName>modbus-rtu-mode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Modbus\Src\rtu\modbus-rtu-mode.c</FilePath>
+            </File>
+            <File>
+              <FileName>modbus-rtu-event-center.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Modbus\Src\rtu\support\modbus-rtu-event-center.c</FilePath>
+            </File>
+            <File>
+              <FileName>modbus-rtu-mode-master.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Modbus\Src\rtu\master\modbus-rtu-mode-master.c</FilePath>
             </File>
           </Files>
         </Group>

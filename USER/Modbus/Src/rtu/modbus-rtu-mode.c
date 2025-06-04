@@ -17,7 +17,7 @@ void initRtuMode(ModbusDeviceWorkContext * workContext)
 {
     if (workContext->workMode == WORK_MODE_MASTER)
     {
-        // address = MASTER_DEVICE_ADDRESS;
+        initRtuModeMaster(workContext);
         workMode = WORK_MODE_MASTER;
     }
     else if (workContext->workMode == WORK_MODE_SLAVE)
